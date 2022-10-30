@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
         x1 = (-b + wurzel) / (2 * a);
         x2 = (-b - wurzel) / (2 * a);
 
-        printf("Die Lösungen sind x1=%lf x2=%lf\n", x1, x2);
+        (wurzel == 0) ? printf("Die Lösung ist x1=%lf\n", x1) : printf("Die Lösungen sind x1=%lf x2=%lf\n", x1, x2);
     }
 //  nicht reelle lösungen
     else 
@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
         double x1b =  wurzel / (2 * a);
         double x2b =  -wurzel / (2 * a);
 
-        (x1b >= 0) ? printf("Die Lösungen sind x1=%lf+%lfi ", xa, x1b) : printf("Die Lösungen sind x1=%lf-%lfi ", xa, x1b);
+        (x1b >= 0) ? printf("Die Lösungen sind x1=%lf+%lfi ", xa, x1b) : printf("Die Lösungen sind x1=%lf%lfi ", xa, x1b);
         (x2b >= 0) ? printf("x2=%lf+%lfi\n", xa, x2b) : printf("x2=%lf-%lfi\n", xa, x2b);
     }
 
