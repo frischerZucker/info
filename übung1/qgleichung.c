@@ -42,7 +42,7 @@ int main(int argc, char const *argv[])
 
         double xa = -b / (2 * a); 
         double x1b =  wurzel / (2 * a);
-        double x2b =  -wurzel / (2 * a);
+        double x2b =  -x1b;
 
         (x1b >= 0) ? printf("Die Lösungen sind x1=%lf+%lfi ", xa, x1b) : printf("Die Lösungen sind x1=%lf%lfi ", xa, x1b);
         (x2b >= 0) ? printf("x2=%lf+%lfi\n", xa, x2b) : printf("x2=%lf-%lfi\n", xa, x2b);
