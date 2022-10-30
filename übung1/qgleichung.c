@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     printf("Bitte Koeffizienten eingeben: ");
     scanf("%lf %lf %lf", &a, &b, &c);
     printf("Koeffizienten a=%lf b=%lf c=%lf\n", a, b, c);
-    
+        
 //  keine quadratische gleichung
     if (a == 0)
     {
