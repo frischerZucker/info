@@ -174,13 +174,9 @@ int main(int argc, char const *argv[])
     }
 
     /*
-        löscht übriggebliebene zeichen der vorletzten zeile
+        löscht aus der vorletzten zeile übriggebliebene zeichen
     */
-    while (i < lineLength)
-    {
-        line[i] = ' ';
-        i++;
-    }
+    for (i; i < lineLength; i++) line[i] = ' ';
     
     /*
         gibt die letzte zeile aus und schreibt sie in outputFile
