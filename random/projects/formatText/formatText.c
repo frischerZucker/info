@@ -55,8 +55,8 @@ int main(int argc, char const *argv[])
     
     char c, lastC;                      //aus datei ausgelesenes zeichen, zuletzt ausgelesenes zeichen
     char line[lineLength + 1];          //aktive zeile in die geschrieben wird
-    char nextLine[lineLength + 1];      //buffer für die nächste zeile
-    char temp[lineLength + 1];          //buffer für abgeschnittene worte
+    char nextLine[lineLength + 1];      //zwischenspeicher für die nächste zeile
+    char temp[lineLength + 1];          //zwischenspeicher für abgeschnittene worte
 
     /*
         setzt null-terminator-zeichen ans ende der strings, um ihr ende zu definieren 
@@ -132,7 +132,7 @@ int main(int argc, char const *argv[])
             k = 0;
 
             /*
-                speichert temp in richtiger in nextline, 
+                speichert temp in richtiger reihenfolge in nextline, 
             */
             for (j -= 1; j >= 0 ; j -= 1)
             {
