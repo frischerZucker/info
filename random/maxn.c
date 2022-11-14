@@ -11,10 +11,7 @@ int main(int argc, char const *argv[])
     printf("#Zahlen: ");
     scanf("%d", &arrayLength);
 
-    if (arrayLength <= 0)
-    {
-        return 1;
-    }
+    if (arrayLength <= 0) return 1;
 
     int a[arrayLength];
 
