@@ -3,7 +3,7 @@
 /*
     Übung 2, Aufgabe 1
     ---
-    zwei brüche eingeben und addieren
+    zwei brüche eingeben und addieren und als kernbruch ausgeben
 */
 
 void swapVars(int *pa, int *pb)
