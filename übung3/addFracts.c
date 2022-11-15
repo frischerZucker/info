@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*
-    Übung 2, Aufgabe 1
+    Übung 3, Aufgabe 1
     ---
     zwei brüche eingeben und addieren
 */

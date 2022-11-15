@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*
-    Übung3, Aufgabe 2
+    Übung 3, Aufgabe 2
     ---
     größten gemeinsamen teiler zweier zahlen finden
 */

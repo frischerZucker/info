@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 /*
-    Übung 2, Aufgabe 1
+    Übung 3, Aufgabe 4
     ---
-    zwei brüche eingeben und addieren und als kernbruch ausgeben
+    zwei brüche eingeben, addieren und als kernbruch ausgeben
 */
 
 void swapVars(int *pa, int *pb)
@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
     a = a / ggt;
     b = b / ggt;
 
-    printf("Ergebnis als Kernbruch: %d/%d", a, b);
+    printf("Ergebnis als Kernbruch: %d/%d\n", a, b);
 
     return 0;
 }

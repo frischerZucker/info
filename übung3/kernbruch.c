@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*
-    Übung3, Aufgabe 3
+    Übung 3, Aufgabe 3
     ---
     kernbruch berechnen
 */
