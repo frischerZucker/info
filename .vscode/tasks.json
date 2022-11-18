@@ -29,7 +29,8 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-lSDL2"
             ],
             "options": {
                 "cwd": "${fileDirname}"
