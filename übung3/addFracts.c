@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
         tempb -> zwischenspeicher für b
     */
     int a, b, c, d, tempb;
-
+    
     printf("a/b + c/d\na: ");
     scanf("%d", &a);
     printf("\nb: ");
@@ -23,6 +23,12 @@ int main(int argc, char const *argv[])
     scanf("%d", &c);
     printf("\nd: ");
     scanf("%d", &d);
+
+    if (b == 0 || d == 0)
+    {
+        printf("Einer der Brüche ist undefiniert, da der Nenner 0 ist!\n    ");
+        return 1;
+    }
 
     if(b == d) a += c;
     else
