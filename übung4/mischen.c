@@ -4,11 +4,6 @@
     Übung 4, Aufgabe 1
 */
 
-void read_array()
-{
-
-}
-
 int main(int argc, char const *argv[])
 {
     int a_length, b_length, c_length;
