@@ -2,6 +2,8 @@
 
 /*
     Übung 4, Aufgabe 1
+    ---
+    simple lösung durch sortieren von c
 */
 
 int main(int argc, char const *argv[])
@@ -16,19 +18,19 @@ int main(int argc, char const *argv[])
 
     for (int i = 0; i < a_length; i++)
     {
-        printf("Zahl %d: ", (int)i);
+        printf("Zahl %d: ", i);
         scanf("%d", &a[i]);
     }
 
 //  b einlesen
-    printf("#Zahlen von b[]: ");
+    printf("\n#Zahlen von b[]: ");
     scanf("%d", &b_length);
 
     int b[b_length];
 
     for (int i = 0; i < b_length; i++)
     {
-        printf("Zahl %d: ", (int)i);
+        printf("Zahl %d: ", i);
         scanf("%d", &b[i]);
     }
 
@@ -56,10 +58,7 @@ int main(int argc, char const *argv[])
 
 //  array c ausgeben
     printf("\nc: ");
-    for (int i = 0; i < c_length; i++)
-    {
-        printf("%d ", c[i]);
-    }
+    for (int i = 0; i < c_length; i++) printf("%d ", c[i]);
     printf("\n");
 
     return 0;
