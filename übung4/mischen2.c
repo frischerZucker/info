@@ -74,8 +74,8 @@ int main(int argc, char const *argv[])
     }
 
     end:
-    //if (a_active) for (j; j < b_length; j++) c[i + j] = b[j];
-   // else for (i; i < a_length; i++) c[i + j] = a[i];
+    if (a_active) for (j; j < b_length; j++) c[i + j] = b[j];
+    else for (i; i < a_length; i++) c[i + j] = a[i];
 
 //  array c ausgeben
     printf("\nc: ");
