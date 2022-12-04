@@ -50,7 +50,7 @@ int main(int argc, char const *argv[])
         */
         if (a_active)
         {
-            while (a[i] < b[j])
+            while (a[i] <= b[j])
             {
                 if (i >= a_length) goto end;
                 c[i + j] = a[i];
@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
         */
         else
         {
-            while (b[j] < a[i])
+            while (b[j] <= a[i])
             {
                 if (j >= b_length) goto end;
                 c[i + j] = b[j];
@@ -79,10 +79,7 @@ int main(int argc, char const *argv[])
 
 //  array c ausgeben
     printf("\nc: ");
-    for (int i = 0; i < c_length; i++) 
-    {
-        printf("%d ", c[i]);
-    }
+    for (int i = 0; i < c_length; i++) printf("%d ", c[i]);
     printf("\n");
 
     return 0;
