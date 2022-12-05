@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     numbers[1] = false;
     for (int i = 2; i < n; i++) numbers[i] = true;
     
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i * i < n; i++)
     {
         if (!numbers[i]) continue;
 
