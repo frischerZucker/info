@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
 
     double *c = &matrix[0][0];
 
-    for (int i = 0; i < 3; i++) printf("%lf ", *(c + i + 3 * i));
+    for (int i = 0; i < 3; i++) printf("%lf ", *(c + 4 * i));
     
     return 0;
 }
