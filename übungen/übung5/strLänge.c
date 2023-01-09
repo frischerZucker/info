@@ -2,8 +2,6 @@
 
 /*
     Übung 5, Aufgabe 3
-    ---
-    ä, ö, ü werden als zwei zeichen erkannt
 */
 
 int main(int argc, char const *argv[])

@@ -17,11 +17,19 @@ int main(int argc, char const *argv[])
     numbers[1] = false;
     for (int i = 2; i < n; i++) numbers[i] = true;
     
-    for (int i = 0; i * i < n; i++)
+    /*
+        vielfache von 2 rausfiltern
+    */
+    for (int i = 4; i < n; i+=2) numbers[i] = false;
+
+    /*
+        rest rausfiltern
+    */
+    for (int i = 3; i * i < n; i += 2)
     {
         if (!numbers[i]) continue;
 
-        for (int j = i * 2; j < n; j += i) numbers[j] = false;
+        for (int j = i * i; j < n; j += 2 * i) numbers[j] = false;
     }
     
     printf("Primzahlen von 1 bis %d:\n", n);
