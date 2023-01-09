@@ -1,0 +1,9 @@
+Brot 2.78
+Käse 4.59
+Obst 1.99
+Brot 1.99
+Swag 20
+Swag 19
+Swag 30
+Milch 0.56
+Käse 2.79
