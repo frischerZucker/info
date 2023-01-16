@@ -1,7 +1,0 @@
-	Brot: 4.77, 2 Produkte, Mittelwert: 2.38
-	Käse: 7.38, 2 Produkte, Mittelwert: 3.69
-	Obst: 1.99, 1 Produkte, Mittelwert: 1.99
-	Swag: 69.00, 3 Produkte, Mittelwert: 23.00
-	Milch: 0.56, 1 Produkte, Mittelwert: 0.56
--------------------------------
-	Summe: 83.70

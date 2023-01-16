@@ -2,180 +2,162 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
-    Projekt: Kassenzettel berechnen
-    -------------------------------
-    %ms in scanf() kein standard c - trotzdem nutzen?
-    -> alternativ scan_string_with_unknown_length() um zu kleine / große strings zu verhindern
-*/
-
 struct Kategorie
 {
-    char *name;
     int anzahl;
-    double gesamtpreis;
+    double preis;
+    char *name;
 };
 
-/*
-    global damit sie nicht ständig an funktionen übergeben werden müssen und sie sowieso die ganze laufzeit über "leben"
-*/
 struct Kategorie *kategorien;
 int anzahl_kategorien = 0;
 
 /*
-    liest string mit vorher unbekannter länge aus dem übergebenen stream ein und speichert ihn in p_string mit passender länge
-    standard-c-konforme alternative zu %ms in scanf()
+    liest einen string mit vorher unbekannter länge ein
+    stdin für *datei übergeben, um aus der konsole einzulesen
 */
-void scan_string_with_unknown_length(char **p_string, FILE *stream)
+void string_einlesen(char **p_string, FILE *datei)
 {
-    /*
-        current_size -> aktuelle anzahl an chars im string
-        max_size -> bei aktuell zugewiesenem speicher maximale anzahl an chars
-    */
-    int current_size = 0, max_size = 10;
+    int anzahl_chars = 0, max_anzahl_chars = 10;
 
     /*
-        allocated max_size chars für den einzulesenden string in p_string
+        erstellt string mit start-länge von 10 chars
     */
-    *p_string = malloc(sizeof(char) * max_size);
-    
+    *p_string = malloc(sizeof(char) * max_anzahl_chars);
+
     char c;
 
-    /*
-        ließt so lange einzelne zeichen aus input_file ein, bis das ende der datei erreicht ist
-    */
-    while ((c = fgetc(stream)) != EOF)
+    while (!feof(datei))
     {
+        anzahl_chars++;
+        c = fgetc(datei);
+
         /*
-            wenn die aktuelle anzahl an zeichen das maximum erreicht, wird das maximum verdoppelt und dem p_string entsprechender speicher zugewiesen
+            vergrößert den string um platz für 10 chars falls die maximale größe erreicht wurde
         */
-        if (current_size == max_size)
+        if (anzahl_chars == max_anzahl_chars)
         {
-            max_size *= 2;
-            *p_string = realloc(*p_string, sizeof(char) * max_size);
+            max_anzahl_chars += 10;
+            *p_string = realloc(*p_string, sizeof(char) * max_anzahl_chars);
         }
 
         /*
-            wenn das trennzeichen (' ') eingelesen wird, wird p_string '\0' hinzugefügt um den string zu beenden
-            und p_string der für die aktuelle anzahl an chars benötigte speicher zugewiesen um übeerschüssig zugewiesenen speicehr zu vermeiden;
-            funktion wird beendet
+            beendet den string bei whitespace mit \0 und verkleinert ihn auf die benötigte größe (leere chars nach \0 fallen weg)
         */
         if (c == ' ' || c == '\n' || c == '\t')
         {
-            (*p_string)[current_size] = '\0';
-
-            *p_string = realloc(*p_string, current_size + 1);
-
+            (*p_string)[anzahl_chars - 1] = '\0';
+            *p_string = realloc(*p_string, sizeof(char) * anzahl_chars);
             return;
         }
-        
-        /*
-            fügt c zum in p_string gespeicherten string hinzu
-        */
-        (*p_string)[current_size] = c;
 
-        current_size++;
-    }
+        /*
+            fügt eingelesenes zeichen zum string hinzu
+        */
+        (*p_string)[anzahl_chars - 1] = c;
+    }   
 }
 
-/*
-    fügt eine neue warenkategorie zum array hinzu
-*/
-void add_new_category(char *name, double *preis)
+void neue_kategorie_hinzufügen(char *name, double *p_preis)
 {
     anzahl_kategorien++;
+    kategorien = (kategorien == NULL) ? malloc(sizeof(struct Kategorie)) : realloc(kategorien, sizeof(struct Kategorie) * anzahl_kategorien);
 
-    /*
-        nutzt malloc um array zu erzeugen falls noch keine kategorie vorhanden und realloc um es anderenfalls zu erweitern
-    */
-    kategorien = (kategorien == NULL) ? malloc(sizeof(struct Kategorie)) : realloc(kategorien, anzahl_kategorien * sizeof(struct Kategorie));
-    
     kategorien[anzahl_kategorien - 1].anzahl = 1;
-    kategorien[anzahl_kategorien - 1].gesamtpreis = *preis;
-    kategorien[anzahl_kategorien - 1].name = malloc(sizeof(name));
+    kategorien[anzahl_kategorien - 1].preis = *p_preis;
+    kategorien[anzahl_kategorien - 1].name = malloc(sizeof(char) * (strlen(name) + 1));
     strcpy(kategorien[anzahl_kategorien - 1].name, name);
 }
 
-/*
-    fügt item zu bereits existierender kategorie hinzu
-*/
-void add_to_existing_category(int index, double *preis)
+void zu_kategorie_hinzufügen(int i, double *p_preis)
 {
-    kategorien[index].anzahl++;
-    kategorien[index].gesamtpreis += *preis;
+    kategorien[i].anzahl++;
+    kategorien[i].preis += *p_preis;
 }
 
-/*
-    liest kategorie-preis-paare aus input_file ein und speichert sie in kategorien
-*/
-void read_data_from_file(FILE *input_file)
+void daten_einlesen(FILE *input_datei)
 {
-    while (!feof(input_file))
+    while (!feof(input_datei))
     {
         char *name;
         double preis;
 
-        scan_string_with_unknown_length(&name, input_file);
-        fscanf(input_file, "%lf", &preis);
+        string_einlesen(&name, input_datei);
+        fscanf(input_datei, "%lf", &preis);
         /*
-            bugfix, überspringt whitespace nach dem preis, da sonst der preis noch mal zur kategorie " " hinzugefügt würde
-            nicht notwendig wenn scanf("%ms", name) statt scan_string_with_unknown_length(&name, input_file) genutzt wird
+            überspringt den whitespace nach dem preis, da string_einlesen sonst das leerzeichen als kategorie einliest
         */
-        fgetc(input_file);
+        fgetc(input_datei);
+
+        if (anzahl_kategorien == 0) 
+        {
+            neue_kategorie_hinzufügen(name, &preis);
+            continue;
+        }
 
         /*
-            schaut ob die kategorie schon existiert
-            j -> fügt preis zu kategorie hinzu
-            n -> erstellt neue kategorie
+            überprüft ob schon eine kategorie mit dem eingelesenen namen existiert
         */
         for (int i = 0; i < anzahl_kategorien; i++)
         {
-            if (strcmp(kategorien[i].name, name) != 0) continue;
+            /*
+                vergleicht den namen der aktuellen kategorie (kategorien[i]) mit dem eingelesenen namen,
+                springt zur nächsten kategorie wenn die namen nicht gleich sind (strcmp nicht 0 zurück gibt)
+            */
+            if (strcmp(name, kategorien[i].name) != 0) continue;
 
-            add_to_existing_category(i, &preis);
-
-            goto loop_end;
-        }
+            zu_kategorie_hinzufügen(i, &preis);
+            goto kategorie_hinzufügen_überspringen;
+        }   
         
-        add_new_category(name, &preis); 
+        /*
+            wird nur ausgeführt wenn noch keine kategorie mit dem eingelesenen namen vorhanden ist,
+            fügt neue kategorie mit dem namen zum kategorien-array hinzu
+        */
+        neue_kategorie_hinzufügen(name, &preis);
 
-        loop_end:
+        kategorie_hinzufügen_überspringen:
         free(name);
     }
 }
 
-void print_results_to_file(FILE *output_file)
+void daten_in_datei_schreiben(FILE *output_datei)
 {
-    double gesamtpreis = 0; //summe der preise aller kategorien
-    
+    double gesamtpreis = 0;
+
     for (int i = 0; i < anzahl_kategorien; i++)
     {
-        gesamtpreis += kategorien[i].gesamtpreis;
-        
-        fprintf(output_file, "\t%s: %.2f, %d Produkte, Mittelwert: %.2f\n", kategorien[i].name, kategorien[i].gesamtpreis, kategorien[i].anzahl, kategorien[i].gesamtpreis / kategorien[i].anzahl);
+        fprintf(output_datei, "%s: %.2f, %d Produkte, Mittelwert: %.2f\n", kategorien[i].name, kategorien[i].preis, kategorien[i].anzahl, (kategorien[i].preis / kategorien[i].anzahl));
+        gesamtpreis += kategorien[i].preis;
     }
 
-    fprintf(output_file, "-------------------------------\n\tSumme: %.2f\n", gesamtpreis);
+    fprintf(output_datei, "---------------------\nSumme: %.2f\n", gesamtpreis);
 }
 
 int main(int argc, char const *argv[])
-{    
-    char *input_file_path, *output_file_path;
+{
+    char *input_datei_pfad, *output_datei_pfad;
+
+    printf("Speicherort der Input-Datei:\n");
+    string_einlesen(&input_datei_pfad, stdin);
+
+    printf("Speicherort der Ausgabe-Datei:\n");
+    string_einlesen(&output_datei_pfad, stdin);
+
+    //char *input_datei_pfad = "input.txt", *output_datei_pfad = "output.txt";
+
+    FILE *input_datei = fopen(input_datei_pfad, "r");
+    FILE *output_datei = fopen(output_datei_pfad, "w");
+
+    free(input_datei_pfad);
+    free(output_datei_pfad);
+
+    daten_einlesen(input_datei);
     
-    printf("Pfad zur Input-Datei: ");
-    scan_string_with_unknown_length(&input_file_path, stdin);
-    printf("Pfad zur Output-Datei: ");
-    scan_string_with_unknown_length(&output_file_path, stdin);
+    daten_in_datei_schreiben(output_datei);
 
-    FILE *input_file = fopen(input_file_path, "r");
-    FILE *output_file = fopen(output_file_path, "w");
-
-    free(input_file_path); 
-    free(output_file_path);
-
-    read_data_from_file(input_file);
-
-    print_results_to_file(output_file);
+    fclose(input_datei);
+    fclose(output_datei);
 
     return 0;
 }
