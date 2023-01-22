@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_STRING_LÄNGE 100
+
 struct Kategorie
 {
     int anzahl;
@@ -11,52 +13,6 @@ struct Kategorie
 
 struct Kategorie *kategorien;
 int anzahl_kategorien = 0;
-
-/*
-    liest einen string mit vorher unbekannter länge ein
-    stdin für *datei übergeben, um aus der konsole einzulesen
-*/
-void string_einlesen(char **p_string, FILE *datei)
-{
-    int anzahl_chars = 0, max_anzahl_chars = 10;
-
-    /*
-        erstellt string mit start-länge von 10 chars
-    */
-    *p_string = malloc(sizeof(char) * max_anzahl_chars);
-
-    char c;
-
-    while (!feof(datei))
-    {
-        anzahl_chars++;
-        c = fgetc(datei);
-
-        /*
-            vergrößert den string um platz für 10 chars falls die maximale größe erreicht wurde
-        */
-        if (anzahl_chars == max_anzahl_chars)
-        {
-            max_anzahl_chars += 10;
-            *p_string = realloc(*p_string, sizeof(char) * max_anzahl_chars);
-        }
-
-        /*
-            beendet den string bei whitespace mit \0 und verkleinert ihn auf die benötigte größe (leere chars nach \0 fallen weg)
-        */
-        if (c == ' ' || c == '\n' || c == '\t')
-        {
-            (*p_string)[anzahl_chars - 1] = '\0';
-            *p_string = realloc(*p_string, sizeof(char) * anzahl_chars);
-            return;
-        }
-
-        /*
-            fügt eingelesenes zeichen zum string hinzu
-        */
-        (*p_string)[anzahl_chars - 1] = c;
-    }   
-}
 
 void neue_kategorie_hinzufügen(char *name, double *p_preis)
 {
@@ -77,23 +33,15 @@ void zu_kategorie_hinzufügen(int i, double *p_preis)
 
 void daten_einlesen(FILE *input_datei)
 {
+    char name[MAX_STRING_LÄNGE];
+    double preis;
+
+    fscanf(input_datei, "%s %lf", name, &preis);
+    neue_kategorie_hinzufügen(name, &preis);
+
     while (!feof(input_datei))
     {
-        char *name;
-        double preis;
-
-        string_einlesen(&name, input_datei);
-        fscanf(input_datei, "%lf", &preis);
-        /*
-            überspringt den whitespace nach dem preis, da string_einlesen sonst das leerzeichen als kategorie einliest
-        */
-        fgetc(input_datei);
-
-        if (anzahl_kategorien == 0) 
-        {
-            neue_kategorie_hinzufügen(name, &preis);
-            continue;
-        }
+        fscanf(input_datei, "%s %lf", name, &preis);
 
         /*
             überprüft ob schon eine kategorie mit dem eingelesenen namen existiert
@@ -117,7 +65,6 @@ void daten_einlesen(FILE *input_datei)
         neue_kategorie_hinzufügen(name, &preis);
 
         kategorie_hinzufügen_überspringen:
-        free(name);
     }
 }
 
@@ -136,21 +83,24 @@ void daten_in_datei_schreiben(FILE *output_datei)
 
 int main(int argc, char const *argv[])
 {
-    char *input_datei_pfad, *output_datei_pfad;
+    char input_datei_pfad[MAX_STRING_LÄNGE], output_datei_pfad[MAX_STRING_LÄNGE];
 
     printf("Speicherort der Input-Datei:\n");
-    string_einlesen(&input_datei_pfad, stdin);
+    scanf("%100s", input_datei_pfad);
 
     printf("Speicherort der Ausgabe-Datei:\n");
-    string_einlesen(&output_datei_pfad, stdin);
-
-    //char *input_datei_pfad = "input.txt", *output_datei_pfad = "output.txt";
+    scanf("%100s", output_datei_pfad);
 
     FILE *input_datei = fopen(input_datei_pfad, "r");
-    FILE *output_datei = fopen(output_datei_pfad, "w");
 
-    free(input_datei_pfad);
-    free(output_datei_pfad);
+    //  beendet das programm wenn die angegebene input-datei nicht geöffnet werden kann
+    if (input_datei == NULL)
+    {
+        printf("\"%s\" kann nicht geöffnet werden\n", input_datei_pfad);
+        exit(1);
+    }
+
+    FILE *output_datei = fopen(output_datei_pfad, "w");
 
     daten_einlesen(input_datei);
     
