@@ -1,4 +1,0 @@
-Entwickeln Sie ein Programm, das eine Textdatei einliest und die Zeilen 
-neu formatiert. Die in der Datei enthaltenen Worte sollen in der selben 
-Reihenfolge wie eingelesen neu zu Zeilen von maximal n Zeichen bei      
-maximaler Zeilenausnutzung in eine neue Datei geschrieben werden.       
