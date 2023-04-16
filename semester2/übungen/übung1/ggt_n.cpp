@@ -59,7 +59,7 @@ long ggt_n(long zahlen[], int n)
 {
     long ggt_ = ggt(zahlen[0], zahlen[1]);
     
-    for (size_t i = 3; i < n; i++)
+    for (size_t i = 2; i < n; i++)
     {
         ggt_ = ggt(zahlen[i], ggt_);
     }
