@@ -44,22 +44,27 @@ long ggt(long a, long b)
 // {
 //     if (n == 1) return zahlen[0];
 
-//     if (n % 2 == 0) n = n / 2;
-//     else n = (n / 2) + 1;
+//     int n_ = n / 2;
     
-//     for (size_t i = 0; i < n; i++)
+//     for (size_t i = 0; i < n_; i++)
 //     {
 //         zahlen[i] = ggt(zahlen[2 * i], zahlen[2 * i + 1]);
 //     }
 
-//     ggt_n(zahlen, n);
+//     if (n % 2 != 0)
+//     {
+//         n_ += 1;
+//         zahlen[n_ - 1] = zahlen[n - 1];
+//     }
+
+//     return ggt_n_rekursiv(zahlen, n_);
 // }
 
 long ggt_n(long zahlen[], int n)
 {
     long ggt_ = ggt(zahlen[0], zahlen[1]);
     
-    for (size_t i = 3; i < n; i++)
+    for (size_t i = 2; i < n; i++)
     {
         ggt_ = ggt(zahlen[i], ggt_);
     }
@@ -78,9 +83,11 @@ int main(int argc, char const *argv[])
     {
         std::cout << "Zahl" << i << ": ";
         std::cin >> zahlen[i];
+        zahlen[i] = std::abs(zahlen[i]);
     }
 
-    std::cout << "ggT: " << ggt_n(zahlen, n) << std::endl;    
+    std::cout << "ggT: " << ggt_n(zahlen, n) << std::endl; 
+    // std::cout << "ggT: " << ggt_n_rekursiv(zahlen, n) << std::endl;
 
     return 0;
 }

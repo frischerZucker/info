@@ -76,8 +76,8 @@ int main()
     std::cout << "b: ";
     std::cin >> b;
 
-    std::cout << ggT(std::abs(a), std::abs(b));    
-    // std::cout << ggT_v(std::abs(a), std::abs(b));
+    std::cout << "ggT: " << ggT(std::abs(a), std::abs(b)) << std::endl;    
+    // std::cout << "ggT: " << ggT_v(std::abs(a), std::abs(b)) << std::endl;
 
     return 0;
 }
