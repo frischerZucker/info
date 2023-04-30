@@ -24,7 +24,7 @@ void daten_einlesen(datum daten[], int n)
         Beinhaltet die Anzahl an Tagen der Monate, die Zahl des Monats dient als Index.
         Die Ausnahme ist der Februar in Schaltjahren, sein Index ist 0.
     */
-    int max_tage_in_monat[] = {29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    m_tag max_tage_in_monat[] = {29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     for (size_t i = 0; i < n; i++)
     {
@@ -47,7 +47,7 @@ void daten_einlesen(datum daten[], int n)
 
 datum datum_verschieben(datum datum)
 {
-    int max_tage_in_monat[] = {29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    m_tag max_tage_in_monat[] = {29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     datum.mon += 1;
     if (datum.mon > 12) 
