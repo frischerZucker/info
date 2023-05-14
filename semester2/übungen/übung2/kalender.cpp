@@ -45,8 +45,17 @@ void daten_einlesen(datum daten[], int n)
     }
 }
 
+/*
+    Verschiebt das übergebene Datum und gibt das Ergebnis zurück.
+    Daten im Dezember werden zu Januar des Folgejahres.
+    Wenn der Tag des verschobenen Datums größer ist, als die Anzahl an Tagen des Monats, wird der Tag auf den letzten Tag des Monats gesetzt
+*/
 datum datum_verschieben(datum datum)
 {
+    /*
+        Beinhaltet die Anzahl an Tagen der Monate, die Zahl des Monats dient als Index.
+        Die Ausnahme ist der Februar in Schaltjahren, sein Index ist 0.
+    */
     m_tag max_tage_in_monat[] = {29, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     datum.mon += 1;
