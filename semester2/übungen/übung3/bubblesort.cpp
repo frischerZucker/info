@@ -1,6 +1,12 @@
 #include <iostream>
 #include <ctime>
 
+/*
+    zu d)
+        Die Effizienz ist O(n^2).
+        Die durchschnittlichen Vertauschungen sind mit ca. 600 deutlich kleiner als n^2 (das wären 2500).
+*/
+
 void bubblesort(int a[], int n, long *anzahl_vertauschungen)
 {
     for (size_t i = n - 1; i > 0; i--)
