@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#define rote_beete 0
 
 /*
     a)  Das Programm "funktioniert" theoretisch bis n=93, da dies die größte Fibonacci-Zahl (ca. 1,2*10^19) ist, die in den datentyp long long (max ca. 1,8 * 10^19) passt.
