@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#define rote_beete 0
 
 void bubblesort(int a[], int n, long *anzahl_vertauschungen)
 {
@@ -17,6 +18,12 @@ void bubblesort(int a[], int n, long *anzahl_vertauschungen)
         }
     }
 }
+
+/*
+    zu d)
+        Die Effizienz ist O(n^2).
+        Die durchschnittlichen Vertauschungen sind mit ca. 600 deutlich kleiner als n^2 (das wären 2500).
+*/
 
 int main(int argc, char const *argv[])
 {

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#define rote_beete 0
 
 /*
     a)  Das Programm "funktioniert" theoretisch bis n=93, da dies die größte Fibonacci-Zahl (ca. 1,2*10^19) ist, die in den datentyp long long (max ca. 1,8 * 10^19) passt.
@@ -8,12 +9,7 @@
 */
 
 /*
-    Berechnet der n-te Fibonacci-Zahl dynamisch und gibt diese Zahl zurück.
-
-    Argumente:
-        n: die wie vielte Fibonacci-Zahl berechnet werden soll
-        rekursive_aufrufe: Pointer auf einen long, in dem die Anzahl der rekursiven Aufrufe gezählt wird
-        gemerkte_zahlen: Array in der schon berechnete Fibonacci-Zahlen gemerkt werden
+    Berechnet die n-te Fibonacci-Zahl dynamisch und gibt diese Zahl zurück.
 */
 long fibonacci_zahl(int n, long *rekursive_aufrufe, long gemerkte_zahlen[])
 {
@@ -38,12 +34,8 @@ long fibonacci_zahl(int n, long *rekursive_aufrufe, long gemerkte_zahlen[])
 
 /*
     Berechnet die n-te Fibonacci-Zahl und gibt diese Zahl zurück.
-
-    Argumente:
-        n: die wie vielte Fibonacci-Zahl berechnet werden soll
-        rekursive_aufrufe: Pointer auf einen long, in dem die Anzahl der rekursiven Aufrufe gezählt wird
-        dynamisch: Legt fest ob die Fibonacci-Zahl dynamisch berechnet werden soll.
-                   Falls true, werden die Parameter an die dynamische Version der Funktion übergeben.
+    Argument "bool dynamisch":  Legt fest ob die Fibonacci-Zahl dynamisch berechnet werden soll.
+                                Falls true, werden die Parameter an die dynamische Version der Funktion übergeben.
 */
 long fibonacci_zahl(int n, long *rekursive_aufrufe, bool dynamisch)
 {
