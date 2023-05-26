@@ -71,12 +71,12 @@ int stack::pop()
 
 bool stack::is_empty()
 {
-    return (laenge == 0);
+    return (laenge <= 0);
 }
 
 bool stack::is_full()
 {
-    return (laenge == MAX_LAENGE);
+    return (laenge >= MAX_LAENGE);
 }
 
 int main(int argc, char const *argv[])
